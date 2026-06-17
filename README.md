@@ -18,7 +18,7 @@ Antes de começar, você precisará ter instalado em sua máquina:
 - [Node.js & NPM](https://nodejs.org/)
 - Um banco de dados (SQLite, MySQL, ou PostgreSQL)
 
-## 🏁 Como fazer o projeto funcionar
+## Como fazer o projeto funcionar
 
 Siga os passos abaixo para rodar o projeto localmente:
 
