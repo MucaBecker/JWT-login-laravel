@@ -1,21 +1,32 @@
 # JWT Login Laravel - Demonstração de Autenticação
 
-Este é um projeto de demonstração desenvolvido em Laravel para ilustrar a implementação de rotas de autenticação. Ele serve como um guia prático para configurar o fluxo de login, registro e proteção de rotas.
+Este é um projeto de demonstração desenvolvido em Laravel para ilustrar a implementação de rotas de autenticação utilizando JWT (JSON Web Tokens). Ele serve como um guia prático para configurar o fluxo de login, registro de usuários e proteção de rotas de API.
 
 ## Descrição do Projeto
 
-O projeto foca na implementação de uma API ou sistema web que utiliza tokens (frequentemente JWT) para autenticar usuários. Ele contém exemplos de:
-- Registro de novos usuários.
-- Login de usuários existentes.
-- Proteção de rotas através de Middlewares de autenticação.
-- Logout e invalidação de sessão/token.
+O projeto foca na implementação de uma API RESTful protegida por autenticação JWT. A arquitetura é centralizada no `UserController`, suportado por Services (`AuthService`) e Form Requests para validação.
+
+### Rotas e Funcionalidades Implementadas
+
+As rotas da API estão definidas em `routes/api.php` e incluem:
+
+- **POST /api/user**: Rota de registro de novos usuários. Protegida por rate limiting (5 requisições por minuto).
+- **POST /api/login**: Rota de autenticação. Recebe credenciais e retorna um token JWT de acesso. Também protegida por rate limiting (5 requisições por minuto).
+- **GET /api/user/{id}**: Rota protegida. Retorna os detalhes de um usuário específico. Acesso restrito via middleware `auth.jwt`, exigindo um token JWT válido.
+
+*Observação: O projeto foca no núcleo de autenticação e registro, portanto funcionalidades como logout não estão expostas nas rotas atuais.*
+
+### Estrutura e Controladores
+
+- **UserController**: Controlador principal que gerencia as requisições de login, criação de usuário e obtenção de dados. 
+- **Documentação de API**: O projeto utiliza atributos OpenAPI/Swagger nativos no `UserController` para gerar documentação interativa das rotas, esquemas de requests e respostas.
 
 ## Pré-requisitos
 
 Antes de começar, você precisará ter instalado em sua máquina:
-- [PHP >= 8.3](https://www.php.net/)
-- [Composer](https://getcomposer.org/)
-- [Node.js & NPM](https://nodejs.org/)
+- PHP >= 8.3
+- Composer
+- Node.js & NPM
 - Um banco de dados (SQLite, MySQL, ou PostgreSQL)
 
 ## Como fazer o projeto funcionar
@@ -40,7 +51,7 @@ Siga os passos abaixo para rodar o projeto localmente:
    ```
 
 4. **Configurar o ambiente:**
-   Copie o arquivo de exemplo e gere a chave da aplicação:
+   Copie o arquivo de exemplo e gere a chave da aplicação e o segredo do JWT:
    ```bash
    cp .env.example .env
    php artisan key:generate
@@ -58,3 +69,19 @@ Siga os passos abaixo para rodar o projeto localmente:
    php artisan serve
    ```
    O projeto estará disponível em `http://127.0.0.1:8000`.
+
+## Como rodar os testes
+
+O projeto possui uma suíte de testes (Testes de Unidade e Testes de Funcionalidade) para garantir o funcionamento correto das rotas e serviços.
+
+Para executar todos os testes, utilize o comando:
+
+```bash
+php artisan test
+```
+
+Alternativamente, você pode usar o PHPUnit diretamente:
+
+```bash
+./vendor/bin/phpunit
+```
