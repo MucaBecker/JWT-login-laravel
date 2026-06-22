@@ -86,7 +86,7 @@ class UserController extends Controller
         }
 
         return response()->json([
-            'msg' => "User created successfully!"
+            'message' => "User created successfully!"
         ], 201);
     }
 
@@ -119,7 +119,7 @@ class UserController extends Controller
         }
 
         return response()->json([
-            "msg" => "Success",
+            "message" => "Success",
             "data" => $user
         ]);
     }
